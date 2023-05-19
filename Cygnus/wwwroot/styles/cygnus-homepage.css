@@ -1,0 +1,104 @@
+.cyngus-search {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+}
+
+.cyngus-search-input {
+    flex: 1;
+    height: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px 0 0 5px;
+    border: none;
+}
+
+.cyngus-search-input:focus {
+    outline: none;
+}
+
+.cyngus-search-button {
+    height: 100%;
+    padding: 10px;
+    font-size: 18px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.cygnus-product-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    transition: transform 0.5s ease;
+}
+
+.cygnus-product {
+    width: 350px;
+    margin: 10px;
+    border: 1px solid #ccc;
+}
+
+.cygnus-product img {
+    max-width: none;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 10px;
+}
+
+
+
+.cygnus-product h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.cygnus-product p {
+    margin-bottom: 10px;
+}
+
+.cygnus-product-info {
+    padding: 10px;
+    text-align: left;
+}
+
+.cygnus-product-info p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+.cygnus-product-details {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.cygnus-price {
+    font-weight: bold;
+    color: black;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.cygnus-add-to-cart {
+    display: inline-block;
+    background-color: black;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cygnus-add-to-cart:hover {
+    background-color: darkgrey;
+}

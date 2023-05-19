@@ -1,0 +1,94 @@
+.cygnus-manage-view {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.cygnus-manage-form {
+    position: relative;
+    padding: 20px;
+    width: 35%;
+    height: 300px;
+    border-style: solid;
+    border-color: gray;
+    border-width: 1px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.cygnus-manage-form .form-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.cygnus-manage-form label {
+    width: 100px;
+    text-align: left;
+    margin-right: 10px;
+}
+
+.cygnus-manage-form input {
+    height: 35px;
+}
+
+.cygnus-manage-form #add-product {
+    position: absolute;
+    bottom: 22px;
+    width: 89%;
+    height: 50px;
+    display: inline-block;
+    background-color: black;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.cygnus-manage-product-table {
+    margin-left: 20px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    overflow: hidden;
+}
+
+.cygnus-manage-product-table th,
+.cygnus-manage-product-table td {
+    padding: 8px;
+    border: 1px solid #dddddd;
+    text-align: left;
+}
+
+.cygnus-manage-product-table th {
+    background-color: #dddddd;
+}
+
+.cygnus-manage-product-table tr:nth-child(even) td {
+    background-color: #f2f2f2;
+}
+
+.cygnus-manage-product-table button {
+    background: none;
+    border: none;
+    color: #5ba1ff;
+    cursor: pointer;
+}
+.cygnus-manage-product-table #delete {
+    color: red;
+}
+
+
+
+
+

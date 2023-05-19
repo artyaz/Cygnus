@@ -1,0 +1,88 @@
+.cygnus-product-view {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px;
+    max-width: 700px;
+}
+.cygnus-product-view img {
+    border-radius: 20px;
+    width: 700px;
+    height: 500px;
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+.cygnus-product-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+    
+}
+.cygnus-checkout {
+    padding: 20px;
+    position: relative;
+    margin: 20px;
+    height: 400px;
+    width: 400px;
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: darkgray;
+    border-style: solid;
+}
+
+.cygnus-checkout #quantity {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cygnus-checkout #quantity-input {
+    width: 100px;
+    border-style: none;
+    background-color: black;
+    border-radius: 20px;
+    color: white;
+    padding-left: 10px;
+}
+
+.cygnus-checkout-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cygnus-checkout #checkout {
+    position: absolute;
+    bottom: 22px;
+    width: 85%;
+    height: 50px;
+    display: inline-block;
+    background-color: black;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.cygnus-checkout #checkout:hover {
+    transform: scale(1.1);
+    animation: bounce 0.3s ease forwards;
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(1.15);
+    }
+    60% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+

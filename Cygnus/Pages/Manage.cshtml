@@ -1,0 +1,70 @@
+@page
+@model Cygnus.Pages.ManageModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<link rel="stylesheet" href="/styles/cygnus-manage-style.css">
+<script src="/scripts/manage-view.js"></script>
+<body>
+
+<div class="cygnus-manage-view">
+    <div class="cygnus-manage-form">
+        <form method="post">
+
+            <div class="form-row">
+                <label for="name" id="label">Name:</label>
+                <input type="text" id="name" name="name" autocomplete="off">
+            </div>
+            <div class="form-row">
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" autocomplete="off">
+            </div>
+            <div class="form-row">
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" step="any" autocomplete="off">
+            </div>
+            <div class="form-row">
+                <label for="image-url">Image URL:</label>
+                <input type="text" id="image-url" name="imageUrl" autocomplete="off">
+            </div>
+            <button type="submit" id="add-product">Add Product</button>
+
+        </form>
+        </div>
+  <div class="cygnus-manage-product-table">
+      <table>
+          <thead>
+              <tr>
+                  <th style="width: 100px;">ID</th>
+                  <th style="width: 200px;">Name</th>
+                  <th style="width: 300px;">Description</th>
+                  <th style="width: 100px;">Price</th>
+                  <th style="width: 200px;">Image URL</th>
+                  <th style="width: 200px;">Delete</th>
+              </tr>
+          </thead>
+          <tbody>
+              @foreach (var product in @Model.Products)
+              {
+                  <tr>
+                      <td>@product.Id</td>
+                      <td>@product.Name</td>
+                      <td><button id="edit" onclick="editDescription('@product.Id', '@product.Description')">Edit</button></td>
+                      <td>@product.Price</td>
+                      <td><button id="edit" onclick="editImageUrl('@product.Id', '@product.ImageUrl')">Edit</button></td>
+                      <td><button type="button" >Delete</button></td>
+
+
+                  </tr>
+
+              }
+          </tbody>
+      </table>
+  </div>
+
+</div>
+</body>
+</html>

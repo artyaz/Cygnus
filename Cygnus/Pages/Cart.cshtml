@@ -1,0 +1,52 @@
+@page
+@model Cygnus.Pages.Cart
+
+<link rel="stylesheet" href="/styles/cygnus-cart.css">
+<body>
+<div class="cygnus-cart-view">
+    <div class="cygnus-cart-table">
+          <table>
+              <thead>
+              <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Remove</th>
+              </tr>
+              </thead>
+              <tbody>
+                  @foreach (var product in @Model.CartProducts)
+                  {
+                      <tr>
+                          <td><img src="@product.ImageUrl"/></td>
+                          <td>@product.Name</td>
+                          <td>@product.Price</td>
+                          <td>1</td>
+                          <td><form method="post">
+                              <input type="hidden" name="id" value="@product.Id" />
+                              <button id="edit" asp-page-handler="Remove">Remove</button>
+                          </form></td>
+                      </tr>
+    
+                  }
+              </tbody>
+          </table>
+      </div>
+    <div class="cygnus-checkout">
+        <h2>Chekout</h2>
+        <hr>
+        <p>Total: $<b id="total">@{
+         double total = 0;
+         foreach (var item in Model.CartProducts)
+         {
+         total += Convert.ToDouble(item.Price);
+         } 
+         @total
+         }</b></p>
+        <div class="cygnus-checkout-container">
+            <button id="checkout">Checkout</button>
+        </div>
+    </div>
+</div>
+</body>
