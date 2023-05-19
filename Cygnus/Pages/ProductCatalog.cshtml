@@ -1,0 +1,73 @@
+﻿@page
+@model ProductCatalogModel
+@{
+    ViewData["Title"] = "Product Catalog";
+}
+<h1>@ViewData["Title"]</h1>
+<link rel="stylesheet" href="/styles/cygnus-catalog.css">
+<div class="cygnus-search"></div>
+<div class="cygnus-catalog-view">
+    <div class="cygnus-filters">
+        <h3>Filter Results</h3>
+        <label for="roast-level">Roast Level:</label>
+        <select name="roast-level" id="roast-level" class="cygnus-catalog-select">
+            <option value="">All</option>
+            <option value="light">Light</option>
+            <option value="medium">Medium</option>
+            <option value="dark">Dark</option>
+        </select>
+        <hr/>
+        <label for="origin">Bean Origin:</label>
+        <select name="origin" id="origin" class="cygnus-catalog-select">
+            <option value="">All</option>
+            <option value="africa">Africa</option>
+            <option value="asia">Asia</option>
+            <option value="central-america">Central America</option>
+            <option value="south-america">South America</option>
+        </select>
+        <hr/>
+        <label for="flavor-profile">Flavor Profile:</label>
+        <select name="flavor-profile" id="flavor-profile" class="cygnus-catalog-select">
+            <option value="">All</option>
+            <option value="nutty">Nutty</option>
+            <option value="chocolatey">Chocolatey</option>
+            <option value="fruity">Fruity</option>
+        </select>
+        <hr/>
+        <label for="organic">Organic:</label>
+        <input type="checkbox" name="organic" id="organic" class="cygnus-catalog-checkbox">
+        <hr/>
+        <label for="decaf">Decaf:</label>
+        <input type="checkbox" name="decaf" id="decaf" class="cygnus-catalog-checkbox">
+        <hr/>
+        <label for="bag-size">Bag Size:</label>
+        <select name="bag-size" id="bag-size" class="cygnus-catalog-select">
+            <option value="">All</option>
+            <option value="250g">250g</option>
+            <option value="500g">500g</option>
+            <option value="1kg">1kg</option>
+        </select>
+        <hr/>
+        <label for="price">Price:</label>
+        <input type="range" name="price" id="price" min="0" max="30" step="1" value="0">
+        <span id="price-value">$0 - $30</span>
+    </div>
+    <div class="cygnus-catalog-products-list">
+        @foreach (var product in Model.Products)
+            {
+                <div class="cygnus-catalog-product">
+                    <div class="product-catalog-image">
+                        <img src="@product.ImageUrl" alt="@product.Name"/>
+                    </div>
+                    <div class="cygnus-catalog-product-info">
+                        <h2>@product.Name</h2>
+                        <p>@product.Description</p>
+                    </div>
+                    <div class="cygnus-catalog-product-details">
+                        <button class="cygnus-catalog-add-to-cart" onclick="redirectToProductPage(@product.Id)">View Details</button>
+                        <p class="cygnus-catalog-price">$@product.Price</p>
+                    </div>
+                </div>
+            }
+    </div>
+</div>

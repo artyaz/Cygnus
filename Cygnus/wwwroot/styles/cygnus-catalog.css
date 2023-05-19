@@ -1,0 +1,48 @@
+.cygnus-catalog-view{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+}
+.cygnus-filters {
+    width: 30%;
+    padding: 10px;
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    border-width: 1px;
+}
+
+.cygnus-catalog-select {
+    width: 100%;
+    padding: 5px;
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    border-width: 1px;
+}
+
+.cygnus-catalog-checkbox:checked {
+    background-color: black;
+    color: black;
+}
+.cygnus-catalog-products-list {
+    width: 70%;
+    padding: 10px;
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    border-width: 1px;
+}
+.cygnus-catalog-product {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 300px;
+    padding: 10px;
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    border-width: 1px;
+    margin-bottom: 10px;
+}

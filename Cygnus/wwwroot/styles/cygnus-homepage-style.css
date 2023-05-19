@@ -1,9 +1,11 @@
 .cyngus-search {
     margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 500px;
     height: 50px;
     border: 1px solid black;
 }
