@@ -269,8 +269,8 @@
       "PackagePath": "staticwebassets/styles/cygnus-manage-style.css"
     },
     {
-      "Id": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-product.css",
-      "PackagePath": "staticwebassets/styles/cygnus-product.css"
+      "Id": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-product-style.css",
+      "PackagePath": "staticwebassets/styles/cygnus-product-style.css"
     },
     {
       "Id": "obj/Debug/net7.0/staticwebassets/msbuild.Cygnus.Microsoft.AspNetCore.StaticWebAssets.props",

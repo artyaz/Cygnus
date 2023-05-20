@@ -7,8 +7,10 @@
 <link rel="stylesheet" href="/styles/cygnus-catalog-style.css">
 <div class="cygnus-search"></div>
 <div class="cygnus-catalog-view">
+    <form method="post">
     <div class="cygnus-filters">
         <h3>Filter Results</h3>
+        <button class="cygnus-catalog-apply" asp-page-handler="ApplyFilters">Apply Filters</button>
         <label for="roast-level">Roast Level:</label>
         <select name="roast-level" id="roast-level" class="cygnus-catalog-select">
             <option value="">All</option>
@@ -52,22 +54,23 @@
         <input type="range" name="price" id="price" min="0" max="30" step="1" value="0">
         <span id="price-value">$0 - $30</span>
     </div>
+    </form>
     <div class="cygnus-catalog-products-list">
         @foreach (var product in Model.Products)
-            {
-                <div class="cygnus-product">
-                    <div class="product-image">
-                        <img src="@product.ImageUrl" alt="@product.Name"/>
-                    </div>
-                    <div class="cygnus-product-info">
-                        <h2>@product.Name</h2>
-                        <p>@product.Description</p>
-                    </div>
-                    <div class="cygnus-product-details">
-                        <button class="cygnus-add-to-cart" onclick="redirectToProductPage(@product.Id)">View Details</button>
-                        <p class="cygnus-price">$@product.Price</p>
-                    </div>
+        {
+            <div class="cygnus-product">
+                <div class="product-image">
+                    <img src="@product.ImageUrl" alt="@product.Name"/>
                 </div>
-            }
+                <div class="cygnus-product-info">
+                    <h2>@product.Name</h2>
+                    <p>@product.Description</p>
+                </div>
+                <div class="cygnus-product-details">
+                    <button class="cygnus-add-to-cart" onclick="redirectToProductPage(@product.Id)">View Details</button>
+                    <p class="cygnus-price">$@product.Price</p>
+                </div>
+            </div>
+        }
     </div>
 </div>
