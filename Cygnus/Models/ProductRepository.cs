@@ -24,47 +24,68 @@ public class ProductRepository : IProductRepository
         return _products;
     }
 
-    public IEnumerable<Product> GetProductsByFilters(string roastLevel, string origin, string flavorProfile, bool organic, bool decaf, string bagSize, double price)
+    public IEnumerable<Product> GetProductsByFilters(string roastLevel, string origin, string flavorProfile,
+        bool? organic, bool? decaf, string bagSize, double minPrice, double maxPrice)
+{
+    var query = _products.AsQueryable();
+
+    if (!string.IsNullOrEmpty(roastLevel))
     {
-        IEnumerable<Product> products = _products;
-
-        if (!string.IsNullOrEmpty(roastLevel))
-        {
-            products = products.Where(p => p.RoastLevel.ToLower() == roastLevel.ToLower());
-        }
-
-        if (!string.IsNullOrEmpty(origin))
-        {
-            products = products.Where(p => p.Origin.ToLower() == origin.ToLower());
-        }
-
-        if (!string.IsNullOrEmpty(flavorProfile))
-        {
-            products = products.Where(p => p.FlavorProfile.ToLower() == flavorProfile.ToLower());
-        }
-
-        if (organic)
-        {
-            products = products.Where(p => p.Organic);
-        }
-
-        if (decaf)
-        {
-            products = products.Where(p => p.Decaf);
-        }
-
-        if (!string.IsNullOrEmpty(bagSize))
-        {
-            products = products.Where(p => p.BagSize.ToLower() == bagSize.ToLower());
-        }
-
-        if (price > 0)
-        {
-            products = products.Where(p => p.Price <= price);
-        }
-
-        return products;
+        query = query.Where(p => p.RoastLevel.ToLower() == roastLevel.ToLower());
     }
+
+    if (!string.IsNullOrEmpty(origin))
+    {
+        query = query.Where(p => p.Origin.ToLower() == origin.ToLower());
+    }
+
+    if (!string.IsNullOrEmpty(flavorProfile))
+    {
+        query = query.Where(p => p.FlavorProfile.ToLower() == flavorProfile.ToLower());
+    }
+
+    switch (organic)
+    {
+        case true:
+            query = query.Where(p => p.Organic);
+            break;
+        case false:
+            query = query.Where(p => !p.Organic);
+            break;
+    }
+
+    switch (decaf)
+    {
+        case true:
+            query = query.Where(p => p.Decaf);
+            break;
+        case false:
+            query = query.Where(p => !p.Decaf);
+            break;
+    }
+
+    if (!string.IsNullOrEmpty(bagSize))
+    {
+        query = query.Where(p => p.BagSize.ToLower() == bagSize.ToLower());
+    }
+
+    if (minPrice > 0)
+    {
+        query = query.Where(p => p.Price >= minPrice);
+    }
+
+    if (maxPrice > minPrice)
+    {
+        query = query.Where(p => p.Price <= maxPrice);
+    }
+    {
+        
+    }
+    
+
+    return query.ToList();
+}
+
 
     
     public void RemoveFromCart(int id)
