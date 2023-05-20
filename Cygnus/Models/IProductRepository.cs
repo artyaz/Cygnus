@@ -11,4 +11,6 @@ public interface IProductRepository
     
     void RemoveFromCart(int id);
     IEnumerable<Product> GetAllCartProducts();
+    IEnumerable<Product> GetProductsByFilters(string roastLevel, string origin, string flavorProfile, bool? organic,
+        bool? decaf, string bagSize, double minPrice, double maxPrice);
 }

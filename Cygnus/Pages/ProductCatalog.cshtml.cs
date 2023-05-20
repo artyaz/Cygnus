@@ -14,6 +14,14 @@ public class ProductCatalogModel : PageModel
     {
         _productRepository = productRepository;
     }
+    
+    public void OnPostApplyFilters(string roastLevel, string origin, string flavorProfile, string organic, string decaf, string bagSize, double minPrice, double maxPrice)
+    {
+        bool? organicBool = !string.IsNullOrEmpty(organic) ? (organic == "Yes") : (bool?)null;
+        bool? decafBool = !string.IsNullOrEmpty(decaf) ? (decaf == "Yes") : (bool?)null;
+        IEnumerable<Product> filteredProducts = _productRepository.GetProductsByFilters(roastLevel, origin, flavorProfile, organicBool, decafBool, bagSize, minPrice, maxPrice);
+        Products = filteredProducts.ToList();
+    }
 
     public void OnGet()
     {
