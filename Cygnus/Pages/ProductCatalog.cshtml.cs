@@ -14,6 +14,11 @@ public class ProductCatalogModel : PageModel
     {
         _productRepository = productRepository;
     }
+    
+    public void OnPostApplyFilters()
+    {
+        
+    }
 
     public void OnGet()
     {
