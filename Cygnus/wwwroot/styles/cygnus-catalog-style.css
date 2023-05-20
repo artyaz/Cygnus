@@ -1,0 +1,38 @@
+.cygnus-catalog-view{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.cygnus-filters {
+    width: 300px;
+    padding: 10px;
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    border-width: 1px;
+}
+
+.cygnus-catalog-select {
+    width: 100%;
+    padding: 5px;
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    border-width: 1px;
+}
+
+.cygnus-catalog-checkbox:checked {
+    background-color: black;
+    color: black;
+}
+.cygnus-catalog-products-list {
+    width: 70%;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.cygnus-catalog-products-list .cygnus-product {
+    width: 30%; /* Adjust this value to fit 3 divs per row */
+}
