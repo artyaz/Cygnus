@@ -38,6 +38,7 @@ public class ProductRepository : IProductRepository
 
             // Rename the temporary file to the original file name
             File.Replace(tempFile, "cart.json", null);
+            // TODO: Delete the temporary file
         }
     }
 

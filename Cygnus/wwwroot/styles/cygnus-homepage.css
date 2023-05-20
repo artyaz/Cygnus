@@ -1,9 +1,11 @@
 .cyngus-search {
     margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 500px;
     height: 50px;
     border: 1px solid black;
 }
@@ -32,15 +34,14 @@
 }
 
 .cygnus-product-list {
-    width: 100%;
+    margin: 0 auto;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    transition: transform 0.5s ease;
 }
 
 .cygnus-product {
-    width: 350px;
+    width: 303px;
     margin: 10px;
     border: 1px solid #ccc;
 }

@@ -1588,11 +1588,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/artemcmilenko/Documents/Workspace/Code/C#/Cygnus/Cygnus/Cygnus.csproj",
+      "projectUniqueName": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/Cygnus.csproj",
       "projectName": "Cygnus",
-      "projectPath": "/Users/artemcmilenko/Documents/Workspace/Code/C#/Cygnus/Cygnus/Cygnus.csproj",
+      "projectPath": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/Cygnus.csproj",
       "packagesPath": "/Users/artemcmilenko/.nuget/packages/",
-      "outputPath": "/Users/artemcmilenko/Documents/Workspace/Code/C#/Cygnus/Cygnus/obj/",
+      "outputPath": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/artemcmilenko/.nuget/NuGet/NuGet.Config"

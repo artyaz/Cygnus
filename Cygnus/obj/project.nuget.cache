@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Dg/w73rDT+Q4CIpvr3KHJFLPBQqchW0Yq6RtHVJYsCRwk8OkQbtdyvrzq72mqGRlg/puneDozOOaXMbqyjeVjw==",
+  "dgSpecHash": "GPm3QZNKl7AyrgWcU/jQQIlYGpaII5S5a+K4KlJMdM6+k+BWSmjWqWicvUCO7b4yKxr68pF7GdnknEgvJiHYsQ==",
   "success": true,
-  "projectFilePath": "/Users/artemcmilenko/Documents/Workspace/Code/C#/Cygnus/Cygnus/Cygnus.csproj",
+  "projectFilePath": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/Cygnus.csproj",
   "expectedPackageFiles": [
     "/Users/artemcmilenko/.nuget/packages/entityframework/6.4.4/entityframework.6.4.4.nupkg.sha512",
     "/Users/artemcmilenko/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",

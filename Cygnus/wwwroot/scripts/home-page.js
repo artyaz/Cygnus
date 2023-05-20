@@ -1,13 +1,3 @@
-const searchButton = document.querySelector('#searchButton');
-const searchInput = document.querySelector('#searchInput');
-
-searchButton.addEventListener('click', () => {
-    const searchText = searchInput.value;
-    if (searchText.length > 0) {
-        Search(searchText); // assuming that Search method is in a script tag or an imported module
-    }
-});
-
 let slideIndex = 0;
 const slider = document.querySelector('.slider');
 const productWidth = document.querySelector('.cygnus-product').clientWidth;
@@ -24,7 +14,6 @@ function slide(n) {
     }
     slider.style.transform = `translateX(-${slideIndex * productWidth}px)`;
 }
-
 function redirectToProductPage(id) {
     window.location.href = "/Product?id=" + id;
 }
