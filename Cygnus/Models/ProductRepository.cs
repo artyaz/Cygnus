@@ -24,6 +24,49 @@ public class ProductRepository : IProductRepository
         return _products;
     }
 
+    public IEnumerable<Product> GetProductsByFilters(string roastLevel, string origin, string flavorProfile, bool organic, bool decaf, string bagSize, double price)
+    {
+        IEnumerable<Product> products = _products;
+
+        if (!string.IsNullOrEmpty(roastLevel))
+        {
+            products = products.Where(p => p.RoastLevel.ToLower() == roastLevel.ToLower());
+        }
+
+        if (!string.IsNullOrEmpty(origin))
+        {
+            products = products.Where(p => p.Origin.ToLower() == origin.ToLower());
+        }
+
+        if (!string.IsNullOrEmpty(flavorProfile))
+        {
+            products = products.Where(p => p.FlavorProfile.ToLower() == flavorProfile.ToLower());
+        }
+
+        if (organic)
+        {
+            products = products.Where(p => p.Organic);
+        }
+
+        if (decaf)
+        {
+            products = products.Where(p => p.Decaf);
+        }
+
+        if (!string.IsNullOrEmpty(bagSize))
+        {
+            products = products.Where(p => p.BagSize.ToLower() == bagSize.ToLower());
+        }
+
+        if (price > 0)
+        {
+            products = products.Where(p => p.Price <= price);
+        }
+
+        return products;
+    }
+
+    
     public void RemoveFromCart(int id)
     {
         var productToRemove = _cartProducts.FirstOrDefault(p => p.Id == id);
@@ -46,6 +89,7 @@ public class ProductRepository : IProductRepository
     {
         return _cartProducts;
     }
+
     public Product GetProductById(int id)
     {
         return _products.FirstOrDefault(p => p.Id == id);

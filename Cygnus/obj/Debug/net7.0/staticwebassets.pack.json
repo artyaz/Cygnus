@@ -265,8 +265,8 @@
       "PackagePath": "staticwebassets/styles/cygnus-homepage.css"
     },
     {
-      "Id": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-manage-style.css",
-      "PackagePath": "staticwebassets/styles/cygnus-manage-style.css"
+      "Id": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-manage.css",
+      "PackagePath": "staticwebassets/styles/cygnus-manage.css"
     },
     {
       "Id": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-product-style.css",

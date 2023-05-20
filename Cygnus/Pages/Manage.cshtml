@@ -6,32 +6,83 @@
 <head>
     <title></title>
 </head>
-<link rel="stylesheet" href="/styles/cygnus-manage-style.css">
+<link rel="stylesheet" href="/styles/cygnus-manage.css">
 <script src="/scripts/manage-view.js"></script>
 <body>
 
 <div class="cygnus-manage-view">
     <div class="cygnus-manage-form">
         <form method="post">
-
+        
             <div class="form-row">
                 <label for="name" id="label">Name:</label>
                 <input type="text" id="name" name="name" autocomplete="off">
             </div>
+        
             <div class="form-row">
                 <label for="description">Description:</label>
                 <input type="text" id="description" name="description" autocomplete="off">
             </div>
+        
             <div class="form-row">
                 <label for="price">Price:</label>
                 <input type="number" id="price" name="price" step="any" autocomplete="off">
             </div>
+        
             <div class="form-row">
                 <label for="image-url">Image URL:</label>
                 <input type="text" id="image-url" name="imageUrl" autocomplete="off">
             </div>
+        
+            <div class="form-row">
+                <label for="roast-level">Roast Level:</label>
+                <select name="roast-level" id="roast-level" class="cygnus-catalog-select">
+                    <option value="light">Light</option>
+                    <option value="medium">Medium</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+        
+            <div class="form-row">
+                <label for="origin">Bean Origin:</label>
+                <select name="origin" id="origin" class="cygnus-catalog-select">
+                    <option value="africa">Africa</option>
+                    <option value="asia">Asia</option>
+                    <option value="central-america">Central America</option>
+                    <option value="south-america">South America</option>
+                </select>
+            </div>
+        
+            <div class="form-row">
+                <label for="flavor-profile">Flavor Profile:</label>
+                <select name="flavor-profile" id="flavor-profile" class="cygnus-catalog-select">
+                    <option value="nutty">Nutty</option>
+                    <option value="chocolatey">Chocolatey</option>
+                    <option value="fruity">Fruity</option>
+                </select>
+            </div>
+        
+            <div class="form-row">
+                <label for="organic">Organic:</label>
+                <input type="checkbox" name="organic" id="organic" class="cygnus-catalog-checkbox">
+            </div>
+        
+            <div class="form-row">
+                <label for="decaf">Decaf:</label>
+                <input type="checkbox" name="decaf" id="decaf" class="cygnus-catalog-checkbox">
+            </div>
+        
+            <div class="form-row">
+                <label for="bag-size">Bag Size:</label>
+                <select name="bag-size" id="bag-size" class="cygnus-catalog-select">
+                    <option value="250g">250g</option>
+                    <option value="500g">500g</option>
+                    <option value="1kg">1kg</option>
+                </select>
+            </div>
+        
             <button type="submit" id="add-product">Add Product</button>
-
+        
         </form>
         </div>
   <div class="cygnus-manage-product-table">

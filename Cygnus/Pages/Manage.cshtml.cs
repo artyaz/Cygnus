@@ -32,14 +32,19 @@ namespace Cygnus.Pages
                 lastProductId = _productRepository.GetAllProducts().Last().Id;    
             }
             
-
             var newProduct = new Product
             {
                 Id = lastProductId + 1,
                 Name = Request.Form["name"],
                 Description = Request.Form["description"],
                 Price = double.Parse(Request.Form["price"]),
-                ImageUrl = Request.Form["imageUrl"]
+                ImageUrl = Request.Form["imageUrl"],
+                RoastLevel = Request.Form["roast-level"],
+                Origin = Request.Form["origin"],
+                FlavorProfile = Request.Form["flavor-profile"],
+                Organic = Request.Form["organic"].FirstOrDefault() == "on",
+                Decaf = Request.Form["decaf"].FirstOrDefault() == "on",
+                BagSize = Request.Form["bag-size"]
             };
 
             _productRepository.AddProduct(newProduct);
