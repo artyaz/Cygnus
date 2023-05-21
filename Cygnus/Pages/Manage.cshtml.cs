@@ -42,6 +42,7 @@ namespace Cygnus.Pages
             product.ImageUrl = Request.Form["editImageUrl"];
             product.RoastLevel = Request.Form["editRoastLevel"];
             product.Origin = Request.Form["editOrigin"];
+            product.Tag = Request.Form["editTag"];
             product.FlavorProfile = Request.Form["editFlavorProfile"];
             product.Organic = organicBool;
             product.Decaf = decafBool;
@@ -73,6 +74,7 @@ namespace Cygnus.Pages
                 ImageUrl = Request.Form["imageUrl"],
                 RoastLevel = Request.Form["roast-level"],
                 Origin = Request.Form["origin"],
+                Tag = Request.Form["tag"],
                 FlavorProfile = Request.Form["flavor-profile"],
                 Organic = organicBool,
                 Decaf = decafBool,
