@@ -2,9 +2,11 @@ using Cygnus.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cygnus.Pages
 {
+    [Authorize(Policy = "admin")]
     public class ManageModel : PageModel
     {
         //list of products
