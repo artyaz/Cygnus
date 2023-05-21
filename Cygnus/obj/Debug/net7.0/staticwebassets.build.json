@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/j+3NTaXfpc5V5LjIK4BH95ajnt5lftcVNniHv2UOag=",
+  "Hash": "L1KmYsJ19CkUPPedux2Woq89KfpriL9GpjWTaFeUtuA=",
   "Source": "Cygnus",
   "BasePath": "_content/Cygnus",
   "Mode": "Default",
@@ -1156,12 +1156,12 @@
       "OriginalItemSpec": "wwwroot/styles/cygnus-homepage.css"
     },
     {
-      "Identity": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-manage.css",
+      "Identity": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-manage-style.css",
       "SourceId": "Cygnus",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/",
       "BasePath": "_content/Cygnus",
-      "RelativePath": "styles/cygnus-manage.css",
+      "RelativePath": "styles/cygnus-manage-style.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1170,7 +1170,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/styles/cygnus-manage.css"
+      "OriginalItemSpec": "wwwroot/styles/cygnus-manage-style.css"
     },
     {
       "Identity": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-product-style.css",

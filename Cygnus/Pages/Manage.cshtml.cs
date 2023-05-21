@@ -9,6 +9,8 @@ namespace Cygnus.Pages
     {
         //list of products
         public List<Product> Products = new List<Product>();
+        
+        public Product currentEdit = new Product();
 
         private readonly IProductRepository _productRepository;
 
@@ -21,6 +23,34 @@ namespace Cygnus.Pages
         {
             _productRepository.DeleteProduct(id);
         }
+        
+        public void OnPostCurrentEdit(int edit)
+        {
+            var product = _productRepository.GetProductById(edit);
+            currentEdit = product;
+        }
+        
+        public void OnPostEdit()
+        {
+            bool organicBool = Request.Form["editOrganic"] == "true";
+            bool decafBool = Request.Form["editDecaf"] == "true";
+            string name = Request.Form["editName"];
+            var product = _productRepository.GetProductById(int.Parse(Request.Form["editId"]));
+            product.Name = Request.Form["editName"];
+            product.Description = Request.Form["editDescription"];
+            product.Price = double.Parse(Request.Form["editPrice"]);
+            product.ImageUrl = Request.Form["editImageUrl"];
+            product.RoastLevel = Request.Form["editRoastLevel"];
+            product.Origin = Request.Form["editOrigin"];
+            product.FlavorProfile = Request.Form["editFlavorProfile"];
+            product.Organic = organicBool;
+            product.Decaf = decafBool;
+            product.BagSize = Request.Form["editBagSize"];
+            
+            _productRepository.UpdateProduct(product);
+            
+            OnGet();
+        }
 
         [HttpPost]
         public void OnPost()
@@ -31,9 +61,11 @@ namespace Cygnus.Pages
             {
                 lastProductId = _productRepository.GetAllProducts().Last().Id;    
             }
-            
+            bool organicBool = Request.Form["organic"] == "Yes";
+            bool decafBool = Request.Form["decaf"] == "Yes";
             var newProduct = new Product
             {
+                
                 Id = lastProductId + 1,
                 Name = Request.Form["name"],
                 Description = Request.Form["description"],
@@ -42,8 +74,8 @@ namespace Cygnus.Pages
                 RoastLevel = Request.Form["roast-level"],
                 Origin = Request.Form["origin"],
                 FlavorProfile = Request.Form["flavor-profile"],
-                Organic = Request.Form["organic"].FirstOrDefault() == "on",
-                Decaf = Request.Form["decaf"].FirstOrDefault() == "on",
+                Organic = organicBool,
+                Decaf = decafBool,
                 BagSize = Request.Form["bag-size"]
             };
 

@@ -154,6 +154,9 @@ public class ProductRepository : IProductRepository
             existingProduct.Description = product.Description;
             existingProduct.Price = product.Price;
         }
+        // Save the products to the JSON file
+        var json = JsonConvert.SerializeObject(_products);
+        File.WriteAllText("products.json", json);
     }
 
     public void DeleteProduct(int id)
