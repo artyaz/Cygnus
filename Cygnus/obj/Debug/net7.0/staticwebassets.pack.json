@@ -261,6 +261,10 @@
       "PackagePath": "staticwebassets/styles/cygnus-catalog.css"
     },
     {
+      "Id": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-header.css",
+      "PackagePath": "staticwebassets/styles/cygnus-header.css"
+    },
+    {
       "Id": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-homepage.css",
       "PackagePath": "staticwebassets/styles/cygnus-homepage.css"
     },

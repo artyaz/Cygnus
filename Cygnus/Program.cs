@@ -5,7 +5,9 @@ using Cygnus.Data;
 using Cygnus.Models;
 using Cygnus.Pages;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +19,28 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql("Host=localhost;Database=mydb;Username=artemcmilenko"));
 builder.Services.AddAuthentication("cookie")
     .AddCookie("cookie");
+// Add ASP.NET Core Identity
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>();
+
+// Add UserManager to DI container
+builder.Services.AddScoped<UserManager<IdentityUser>>();
 
 builder.Services.AddAuthorization(builder =>
 {
+    builder.AddPolicy("super_admin", policy =>
+    {
+        policy.RequireClaim("role", "super_admin");
+    });
     builder.AddPolicy("admin", policy =>
     {
-        policy.RequireClaim("role", "admin");
+        policy.RequireAssertion(context =>
+            context.User.HasClaim(claim =>
+                (claim.Type == "role" && (claim.Value == "admin" || claim.Value == "super_admin"))));
+    });
+    builder.AddPolicy("user", policy =>
+    {
+        policy.RequireClaim("role", "user");
     });
 });
 
@@ -38,9 +56,9 @@ if (!app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/logout", async (HttpContext ctx) =>
+app.MapGet("/logout", async (IHttpContextAccessor ctx) =>
 {
-    await ctx.SignOutAsync();
+    await ctx.HttpContext.SignOutAsync("Identity.Application");
     return "logged out";
 });
 

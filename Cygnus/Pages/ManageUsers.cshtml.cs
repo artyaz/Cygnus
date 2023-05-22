@@ -4,9 +4,11 @@ using Cygnus.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cygnus.Pages
 {
+    [Authorize(Policy = "super_admin")]
     public class ManageUsers : PageModel
     {
         private readonly AppDbContext _db;

@@ -33,7 +33,14 @@ public class Login : PageModel
             var identity = new ClaimsIdentity(claims, "cookie");
             var principal = new ClaimsPrincipal(identity);
 
-            await _httpContextAccessor.HttpContext.SignInAsync(principal);
+            await _httpContextAccessor.HttpContext.SignInAsync(
+                scheme: "Identity.Application",
+                principal: principal,
+                properties: new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                });
 
             return RedirectToPage("/Index");
         }
