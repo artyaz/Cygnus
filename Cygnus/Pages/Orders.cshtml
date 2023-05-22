@@ -1,0 +1,38 @@
+@page
+@model Cygnus.Pages.OrdersModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Orders</title>
+</head>
+<body>
+    <h1>Orders</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Invoice</th>
+                <th>Owner</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.Invoice</td>
+                    <td>@order.Owner</td>
+                    <td>@order.Products</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

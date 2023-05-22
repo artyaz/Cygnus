@@ -117,11 +117,11 @@
             @foreach (var product in @Model.Products)
             {
                 <tr>
-                    <td>@product.Id</td>
+                    <td>@product.ProductId</td>
                     <td>@product.Name</td>
                     <td>@product.Price</td>
                     <td>
-                    <button id="edit" name="id" type="submit" value="@product.Id">Edit</button>
+                    <button id="edit" name="id" type="submit" value="@product.ProductId">Edit</button>
                     </td>
                     <td><button type="button" >Delete</button></td>
                 </tr>

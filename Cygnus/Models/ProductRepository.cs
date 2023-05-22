@@ -90,7 +90,7 @@ public class ProductRepository : IProductRepository
     
     public void RemoveFromCart(int id)
     {
-        var productToRemove = _cartProducts.FirstOrDefault(p => p.Id == id);
+        var productToRemove = _cartProducts.FirstOrDefault(p => p.ProductId == id);
         if (productToRemove != null)
         {
             _cartProducts.Remove(productToRemove);
@@ -113,7 +113,7 @@ public class ProductRepository : IProductRepository
 
     public Product GetProductById(int id)
     {
-        return _products.FirstOrDefault(p => p.Id == id);
+        return _products.FirstOrDefault(p => p.ProductId == id);
     }
 
     public void AddProduct(Product product)
@@ -147,7 +147,7 @@ public class ProductRepository : IProductRepository
 
     public void UpdateProduct(Product product)
     {
-        var existingProduct = _products.FirstOrDefault(p => p.Id == product.Id);
+        var existingProduct = _products.FirstOrDefault(p => p.ProductId == product.ProductId);
         if (existingProduct != null)
         {
             existingProduct.Name = product.Name;
@@ -161,7 +161,7 @@ public class ProductRepository : IProductRepository
 
     public void DeleteProduct(int id)
     {
-        var productToRemove = _products.FirstOrDefault(p => p.Id == id);
+        var productToRemove = _products.FirstOrDefault(p => p.ProductId == id);
         if (productToRemove != null)
         {
             _products.Remove(productToRemove);

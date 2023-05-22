@@ -56,10 +56,10 @@ if (!app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/logout", async (IHttpContextAccessor ctx) =>
+app.MapGet("/logout", async (HttpContext ctx) =>
 {
-    await ctx.HttpContext.SignOutAsync("Identity.Application");
-    return "logged out";
+    await ctx.SignOutAsync("Identity.Application");
+    ctx.Response.Redirect("/"); // Redirect to the index page
 });
 
 app.MapGet("/registe", async (HttpContext ctx, AppDbContext db) =>

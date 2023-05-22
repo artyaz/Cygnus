@@ -24,7 +24,7 @@
                           <td>@product.Price</td>
                           <td>1</td>
                           <td><form method="post">
-                              <input type="hidden" name="id" value="@product.Id" />
+                              <input type="hidden" name="id" value="@product.ProductId" />
                               <button id="edit" asp-page-handler="Remove">Remove</button>
                           </form></td>
                       </tr>
@@ -44,9 +44,9 @@
          } 
          @total
          }</b></p>
-        <div class="cygnus-checkout-container">
-            <button id="checkout">Checkout</button>
-        </div>
+        <form method="post" class="cygnus-checkout-container">
+            <button id="checkout" asp-page-handler="Checkout">Checkout</button>
+        </form>
     </div>
 </div>
 </body>

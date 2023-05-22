@@ -25,7 +25,7 @@
         <hr>
         <p>Total: $<b id="total">@Model.Product.Price</b></p>
         <div class="cygnus-checkout-container">
-            <input type="hidden" name="id" value="@Model.Product.Id" />
+            <input type="hidden" name="id" value="@Model.Product.ProductId" />
             <button id="checkout" asp-page-handler="AddToCart">Add to Cart</button>
         </div>
     </form>

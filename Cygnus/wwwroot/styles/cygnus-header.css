@@ -15,7 +15,7 @@
     width: 200px;
     display: none;
     position: absolute;
-    left: 0;
+    left: -30px;
     top: 100%;
     background-color: white;
     border: 1px solid #ccc;
@@ -51,28 +51,28 @@
 
 @keyframes bounceIn {
     0% {
-        transform: scale(0.9);
+        transform: translate(0, -10%);
         opacity: 0;
     }
     60% {
-        transform: scale(1.2);
+        transform: translate(0, 10%);
         opacity: 1;
     }
     100% {
-        transform: scale(1);
+        transform: translate(0, 0);
     }
 }
 
 @keyframes bounceOut {
     0% {
-        transform: scale(1);
+        transform: translate(0, 0);
     }
     40% {
-        transform: scale(1.2);
+        transform: translate(0, 10%);
         opacity: 1;
     }
     100% {
-        transform: scale(0.1);
+        transform: translate(0, -10%);
         opacity: 0;
     }
 }
