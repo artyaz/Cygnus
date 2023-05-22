@@ -1,14 +1,20 @@
 
 using System.Security.Claims;
+using Cygnus;
+using Cygnus.Data;
 using Cygnus.Models;
 using Cygnus.Pages;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IProductRepository,ProductRepository>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql("Host=localhost;Database=mydb;Username=artemcmilenko"));
 builder.Services.AddAuthentication("cookie")
     .AddCookie("cookie");
 
@@ -32,24 +38,36 @@ if (!app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/username", (HttpContext ctx) =>
+app.MapGet("/logout", async (HttpContext ctx) =>
 {
-    return ctx.User.FindFirst("usr")?.Value;
+    await ctx.SignOutAsync();
+    return "logged out";
 });
 
-app.MapGet("/login", async (HttpContext ctx) =>
+app.MapGet("/registe", async (HttpContext ctx, AppDbContext db) =>
 {
-    //auth.SignIn();
-    
-    var claims = new List<Claim>();
-    claims.Add(new Claim("usr", "artem"));
-    claims.Add(new Claim("role", "admin"));
-    var identity = new ClaimsIdentity(claims, "cookie");
-    var user = new ClaimsPrincipal(identity);
+    var user = new User
+    {
+        Username = "test2",
+        PasswordHash = "your_password_hash", // Replace this with a hashed password
+        Role = "admin"
+    };
 
-    await ctx.SignInAsync("cookie", user);
-    
+    db.Users.Add(user);
+    await db.SaveChangesAsync();
+
+    var claims = new List<Claim>
+    {
+        new Claim("usr", user.Username),
+        new Claim("role", user.Role)
+    };
+    var identity = new ClaimsIdentity(claims, "cookie");
+    var principal = new ClaimsPrincipal(identity);
+
+    await ctx.SignInAsync("cookie", principal);
+
     return "ok";
+    
 });
 
 app.UseHttpsRedirection();

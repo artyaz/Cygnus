@@ -28,8 +28,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/artemcmilenko/Documents/Workspace/Code/C\#/something/Cygnus/Cygnus/Pages/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/artemcmilenko/Documents/Workspace/Code/C\#/something/Cygnus/Cygnus/Pages/Manage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTWFuYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/artemcmilenko/Documents/Workspace/Code/C\#/something/Cygnus/Cygnus/Pages/ManageUsers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTWFuYWdlVXNlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/artemcmilenko/Documents/Workspace/Code/C\#/something/Cygnus/Cygnus/Pages/Product.cshtml]
@@ -38,6 +46,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/artemcmilenko/Documents/Workspace/Code/C\#/something/Cygnus/Cygnus/Pages/ProductCatalog.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdENhdGFsb2cuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/artemcmilenko/Documents/Workspace/Code/C\#/something/Cygnus/Cygnus/Pages/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/artemcmilenko/Documents/Workspace/Code/C\#/something/Cygnus/Cygnus/Pages/Shared/_ValidationScriptsPartial.cshtml]
