@@ -7,10 +7,12 @@ public interface IProductRepository
     void AddProduct(Product product);
     void UpdateProduct(Product product);
     void DeleteProduct(int id);
-    void AddToCart(Product product);
-    
-    void RemoveFromCart(int id);
-    IEnumerable<Product> GetAllCartProducts();
     IEnumerable<Product> GetProductsByFilters(string roastLevel, string origin, string flavorProfile, bool? organic,
         bool? decaf, string bagSize, double minPrice, double maxPrice);
+    void AddToCart(CartProduct cartProduct);
+    void UpdateCartProduct(CartProduct cartProduct);
+    void RemoveFromCart(int cartProductId);
+    void ClearCart(string username);
+    IEnumerable<CartProduct> GetAllCartProducts(string ownerUsername);
+    
 }

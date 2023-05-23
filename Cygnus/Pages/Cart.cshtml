@@ -19,9 +19,9 @@
                   @foreach (var product in @Model.CartProducts)
                   {
                       <tr>
-                          <td><img src="@product.ImageUrl"/></td>
-                          <td>@product.Name</td>
-                          <td>@product.Price</td>
+                          <td><img src="@product.Product.ImageUrl"/></td>
+                          <td>@product.Product.Price</td>
+                          <td>@product.Product.Name</td>
                           <td>1</td>
                           <td><form method="post">
                               <input type="hidden" name="id" value="@product.ProductId" />
@@ -40,7 +40,7 @@
          double total = 0;
          foreach (var item in Model.CartProducts)
          {
-         total += Convert.ToDouble(item.Price);
+         total += Convert.ToDouble(item.Product.Price);
          } 
          @total
          }</b></p>

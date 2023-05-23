@@ -1,37 +1,39 @@
 using Cygnus.Data;
 using Cygnus.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Cygnus.Pages
+namespace Cygnus.Pages;
+
+public class ProductModel : PageModel
 {
-    public class ProductModel : PageModel
+    public Product Product { get; set; }
+
+    private readonly IProductRepository _productRepository;
+    private readonly AppDbContext _db;
+
+    public ProductModel(IProductRepository productRepository, AppDbContext db)
     {
-        public Product Product { get; set; }
-        
-        private readonly IProductRepository _productRepository;
-        private readonly AppDbContext _db;
+        _productRepository = productRepository;
+        _db = db;
+    }
 
-        public ProductModel(IProductRepository productRepository, AppDbContext db)
+    public void OnPostAddToCart(int id)
+    {
+        string ownerUsername = User.Identity.IsAuthenticated ? User.Claims.ToList()[0].Value : "anonymous";
+        var cartProduct = new CartProduct
         {
-            _productRepository = productRepository;
-            _db = db;
-        }
-        
-        public void OnPostAddToCart(int id)
-        {
-            Product product = _productRepository.GetProductById(id);
-            _productRepository.AddToCart(product);
-            OnGet(id);
-        }
+            ProductId = id,
+            Product = _productRepository.GetProductById(id),
+            Count = 1,
+            OwnerUsername = ownerUsername
+        };
+        _productRepository.AddToCart(cartProduct);
+        OnGet(id);
+    }
 
-        public void OnGet(int id)
-        {
-            
-            Product = _productRepository.GetProductById(id);
-
-            // Set the "Title" property of the ViewData dictionary
-            ViewData["Title"] = Product.Name;
-        }
+    public void OnGet(int id)
+    {
+        Product = _productRepository.GetProductById(id);
+        ViewData["Title"] = Product.Name;
     }
 }

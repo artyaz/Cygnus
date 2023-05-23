@@ -2,7 +2,7 @@
 @model Cygnus.Pages.OrdersModel
 
 @{
-    Layout = null;
+    Layout = "Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -11,28 +11,33 @@
 <head>
     <title>Orders</title>
 </head>
+<link rel="stylesheet" href="/styles/cygnus-orders.css">
 <body>
     <h1>Orders</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Invoice</th>
-                <th>Owner</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var order in Model.Orders)
-            {
-                <tr>
-                    <td>@order.OrderId</td>
-                    <td>@order.Invoice</td>
-                    <td>@order.Owner</td>
-                    <td>@order.Products</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="cygnus-container">
+<div class="cygnus-order-view">
+    
+    @foreach (var order in Model.orders)
+    {
+        <div class="cygnus-order-item">
+            <div class="cygnus-order-info">
+                @order.Invoice
+            </div>
+            <div class="cygnus-order-products">
+                @foreach (var product in order.OrderProducts)
+                {
+                    <div onclick="location.href='/Product?id=@product.ProductId'" class="cygnu-order-product">
+                        <img src="@product.Product.ImageUrl"/>
+                        <p>@product.Product.Name</p>
+                    </div>
+                }
+            </div>
+            <hr style="width: 100%; margin-top: 10px">
+        </div>
+        
+    }
+</div>
+</div>
 </body>
 </html>
