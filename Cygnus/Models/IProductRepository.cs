@@ -11,6 +11,7 @@ public interface IProductRepository
         bool? decaf, string bagSize, double minPrice, double maxPrice);
     void AddToCart(CartProduct cartProduct);
     void UpdateCartProduct(CartProduct cartProduct);
+    CartProduct GetCartProductByProductIdAndOwner(int productId, string ownerUsername);
     void RemoveFromCart(int cartProductId);
     void ClearCart(string username);
     IEnumerable<CartProduct> GetAllCartProducts(string ownerUsername);

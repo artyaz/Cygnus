@@ -12,7 +12,10 @@ public class Order
 
     [Required]
     public string Invoice { get; set; }
-
+    [Required]
+    public string City { get; set; }
+    [Required]
+    public string Department { get; set; }
     [Required]
     public List<OrderProduct> OrderProducts { get; set; }
 }

@@ -91,6 +91,7 @@ namespace Cygnus.Pages
         public void OnGet()
         {
             Products = _productRepository.GetAllProducts().ToList();
+            string sello = "selo";
         }
     }
 }
