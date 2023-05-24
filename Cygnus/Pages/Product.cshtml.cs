@@ -17,17 +17,32 @@ public class ProductModel : PageModel
         _db = db;
     }
 
-    public void OnPostAddToCart(int id)
+    public void OnPostAddToCart(int id, int quantity)
     {
         string ownerUsername = User.Identity.IsAuthenticated ? User.Claims.ToList()[0].Value : "anonymous";
-        var cartProduct = new CartProduct
+
+        // Check if the product already exists in the cart
+        var existingCartProduct = _productRepository.GetCartProductByProductIdAndOwner(id, ownerUsername);
+
+        if (existingCartProduct != null)
         {
-            ProductId = id,
-            Product = _productRepository.GetProductById(id),
-            Count = 1,
-            OwnerUsername = ownerUsername
-        };
-        _productRepository.AddToCart(cartProduct);
+            // If the product exists, update the count
+            existingCartProduct.Count += quantity;
+            _productRepository.UpdateCartProduct(existingCartProduct);
+        }
+        else
+        {
+            // If the product doesn't exist, add it to the cart
+            var cartProduct = new CartProduct
+            {
+                ProductId = id,
+                Product = _productRepository.GetProductById(id),
+                Count = quantity,
+                OwnerUsername = ownerUsername
+            };
+            _productRepository.AddToCart(cartProduct);
+        }
+
         OnGet(id);
     }
 

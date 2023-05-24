@@ -119,6 +119,12 @@ public class ProductRepository : IProductRepository
         _context.SaveChanges();
     }
 
+    public CartProduct GetCartProductByProductIdAndOwner(int productId, string ownerUsername)
+    {
+        return _context.CartProducts.FirstOrDefault(cp => cp.ProductId == productId && cp.OwnerUsername == ownerUsername);
+
+    }
+
     public void RemoveFromCart(int cartProductId)
     {
         var cartProduct = _context.CartProducts.FirstOrDefault(cp => cp.CartProductId == cartProductId);
