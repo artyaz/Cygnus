@@ -3,6 +3,7 @@ using System;
 using Cygnus.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cygnus.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230523201239_CartProductsAdded")]
+    partial class CartProductsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,6 +36,9 @@ namespace Cygnus.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("integer");
 
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("OwnerUsername")
                         .IsRequired()
                         .HasColumnType("text");
@@ -41,6 +47,8 @@ namespace Cygnus.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("CartProductId");
+
+                    b.HasIndex("OwnerId");
 
                     b.HasIndex("ProductId");
 
@@ -54,14 +62,6 @@ namespace Cygnus.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderId"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Department")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("Invoice")
                         .IsRequired()
@@ -83,9 +83,6 @@ namespace Cygnus.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderProductId"));
-
-                    b.Property<int>("Count")
-                        .HasColumnType("integer");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("integer");
@@ -379,11 +376,19 @@ namespace Cygnus.Migrations
 
             modelBuilder.Entity("Cygnus.CartProduct", b =>
                 {
+                    b.HasOne("Cygnus.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Cygnus.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Owner");
 
                     b.Navigation("Product");
                 });

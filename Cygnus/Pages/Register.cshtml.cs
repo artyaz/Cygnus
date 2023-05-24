@@ -35,7 +35,7 @@ public class Register : PageModel
         {
             Username = username,
             PasswordHash = hashedPassword, // Implement a password hashing function
-            Role = "super_admin"
+            Role = "user"
         };
 
         _db.Users.Add(user);

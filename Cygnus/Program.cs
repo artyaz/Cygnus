@@ -14,6 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IProductRepository,ProductRepository>();
+builder.Services.AddScoped<NovaPoshtaApi>();
+builder.Services.AddHttpClient<NovaPoshtaApi>();
+builder.Services.Configure<NovaPoshtaApiOptions>(options =>
+{
+    options.ApiKey = "06bd6bce5df7fa4eecd6ea159e2e91b1";
+});
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql("Host=localhost;Database=mydb;Username=artemcmilenko"));
@@ -56,10 +62,10 @@ if (!app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/logout", async (IHttpContextAccessor ctx) =>
+app.MapGet("/logout", async (HttpContext ctx) =>
 {
-    await ctx.HttpContext.SignOutAsync("Identity.Application");
-    return "logged out";
+    await ctx.SignOutAsync("Identity.Application");
+    ctx.Response.Redirect("/"); // Redirect to the index page
 });
 
 app.MapGet("/registe", async (HttpContext ctx, AppDbContext db) =>

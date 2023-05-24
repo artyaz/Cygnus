@@ -62,14 +62,14 @@ namespace Cygnus.Pages
             int lastProductId = 0;
             if (Products.Count > 0)
             {
-                lastProductId = _productRepository.GetAllProducts().Last().Id;    
+                lastProductId = _productRepository.GetAllProducts().Last().ProductId;    
             }
             bool organicBool = Request.Form["organic"] == "Yes";
             bool decafBool = Request.Form["decaf"] == "Yes";
             var newProduct = new Product
             {
                 
-                Id = lastProductId + 1,
+                ProductId = lastProductId + 1,
                 Name = Request.Form["name"],
                 Description = Request.Form["description"],
                 Price = double.Parse(Request.Form["price"]),
@@ -91,6 +91,7 @@ namespace Cygnus.Pages
         public void OnGet()
         {
             Products = _productRepository.GetAllProducts().ToList();
+            string sello = "selo";
         }
     }
 }

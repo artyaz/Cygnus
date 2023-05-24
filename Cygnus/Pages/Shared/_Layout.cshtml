@@ -50,6 +50,12 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/Cart">Cart</a>
                     </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Orders">Orders</a>
+                        </li>
+                    }
                     <li class="nav-item">
                     </li>
                 </ul>
