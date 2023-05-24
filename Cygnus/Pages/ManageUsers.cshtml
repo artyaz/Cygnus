@@ -1,0 +1,37 @@
+@page
+@model Cygnus.Pages.ManageUsers
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<h2>Manage Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Change Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Role</td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <select name="newRole">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <button type="submit" asp-page-handler="ChangeRole">Change Role</button>
+                        <button type="submit" asp-page-handler="DeleteUser">Delete User</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

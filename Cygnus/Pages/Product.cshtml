@@ -21,11 +21,11 @@
     <form class="cygnus-checkout" method="post">
         <h2>@Model.Product.Name</h2>
         <hr>
-        <p id = "quantity">Quantity: <input type="number" id="quantity-input" value="1" /></p>
+        <p id = "quantity">Quantity: <input name="quantity" type="number" id="quantity-input" value="1" /></p>
         <hr>
         <p>Total: $<b id="total">@Model.Product.Price</b></p>
         <div class="cygnus-checkout-container">
-            <input type="hidden" name="id" value="@Model.Product.Id" />
+            <input type="hidden" name="id" value="@Model.Product.ProductId" />
             <button id="checkout" asp-page-handler="AddToCart">Add to Cart</button>
         </div>
     </form>

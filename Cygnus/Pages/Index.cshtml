@@ -27,51 +27,33 @@
                 <p>@product.Description</p>
             </div>
             <div class="cygnus-product-details">
-                <button class="cygnus-add-to-cart" onclick="redirectToProductPage(@product.Id)">View Details</button>
+                <button class="cygnus-add-to-cart" onclick="redirectToProductPage(@product.ProductId)">View Details</button>
                 <p class="cygnus-price">$@product.Price</p>
             </div>
         </div>
     }
 </div>
     <hr>
-<h2>Coffee Blends</h2>
+<h2>Espresso Beans</h2>
 <div class="cygnus-product-list">
-    @foreach (var product in Model.Products.Where(p => p.Tag == "blend"))
-        {
-            <div class="cygnus-product">
-                <div class="product-image">
-                    <img src="@product.ImageUrl" alt="@product.Name"/>
-                </div>
-                <div class="cygnus-product-info">
-                    <h2>@product.Name</h2>
-                    <p>@product.Description</p>
-                </div>
-                <div class="cygnus-product-details">
-                    <button class="cygnus-add-to-cart" onclick="redirectToProductPage(@product.Id)">View Details</button>
-                    <p class="cygnus-price">$@product.Price</p>
-                </div>
-            </div>
-        }
-    </div>
-    <hr>
-    <h2>Espresso Beans</h2>
     @foreach (var product in Model.Products.Where(p => p.Tag == "espresso"))
-        {
-            <div class="cygnus-product">
-                <div class="product-image">
-                    <img src="@product.ImageUrl" alt="@product.Name"/>
-                </div>
-                <div class="cygnus-product-info">
-                    <h2>@product.Name</h2>
-                    <p>@product.Description</p>
-                </div>
-                <div class="cygnus-product-details">
-                    <button class="cygnus-add-to-cart" onclick="redirectToProductPage(@product.Id)">View Details</button>
-                    <p class="cygnus-price">$@product.Price</p>
-                </div>
+    {
+        <div class="cygnus-product">
+            <div class="product-image">
+                <img src="@product.ImageUrl" alt="@product.Name"/>
             </div>
-        }
-    <hr>
+            <div class="cygnus-product-info">
+                <h2>@product.Name</h2>
+                <p>@product.Description</p>
+            </div>
+            <div class="cygnus-product-details">
+                <button class="cygnus-add-to-cart" onclick="redirectToProductPage(@product.ProductId)">View Details</button>
+                <p class="cygnus-price">$@product.Price</p>
+            </div>
+        </div>
+    }
+</div>
+<hr>
 <h2>Decaf Coffee Beans</h2>
 <div class="cygnus-product-list">
     @foreach (var product in Model.Products.Where(p => p.Decaf == true))
@@ -85,7 +67,7 @@
                     <p>@product.Description</p>
                 </div>
                 <div class="cygnus-product-details">
-                    <button class="cygnus-add-to-cart" onclick="redirectToProductPage(@product.Id)">View Details</button>
+                    <button class="cygnus-add-to-cart" onclick="redirectToProductPage(@product.ProductId)">View Details</button>
                     <p class="cygnus-price">$@product.Price</p>
                 </div>
             </div>

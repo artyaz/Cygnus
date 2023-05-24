@@ -19,6 +19,10 @@
     align-items: flex-start;
 }
 
+.cygnus-manage-form #description {
+    height: 100px;
+}
+
 .cygnus-manage-form .form-row {
     display: flex;
     flex-direction: row;
@@ -49,6 +53,19 @@
     cursor: pointer;
     border-radius: 15px;
     transition: transform 0.3s ease;
+}
+
+dialog {
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    border-style: solid;
+}
+
+.cygnus-manage-edit-form .form-row {
+    padding-bottom: 10px;
 }
 
 .cygnus-manage-product-table {

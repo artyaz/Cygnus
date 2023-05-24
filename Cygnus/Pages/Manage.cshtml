@@ -6,7 +6,7 @@
 <head>
     <title></title>
 </head>
-<link rel="stylesheet" href="/styles/cygnus-manage.css">
+<link rel="stylesheet" href="/styles/cygnus-manage-style.css">
 <script src="/scripts/manage-view.js"></script>
 <body>
 
@@ -32,6 +32,15 @@
             <div class="form-row">
                 <label for="image-url">Image URL:</label>
                 <input type="text" id="image-url" name="imageUrl" autocomplete="off">
+            </div>
+            
+            <div class="form-row">
+                <label for="tag">Tag:</label>
+                <select name="tag" id="tag" class="cygnus-catalog-select">
+                    <option value="topSelling">Top selling</option>
+                    <option value="espresso">Espresso Beans</option>
+                    <option value="blend">Coffee Blends</option>
+                </select>
             </div>
         
             <div class="form-row">
@@ -64,12 +73,20 @@
         
             <div class="form-row">
                 <label for="organic">Organic:</label>
-                <input type="checkbox" name="organic" id="organic" class="cygnus-catalog-checkbox">
+                <select name="organic" id="organic" class="cygnus-catalog-select">
+                    <option value="">All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    </select>
             </div>
         
             <div class="form-row">
                 <label for="decaf">Decaf:</label>
-                <input type="checkbox" name="decaf" id="decaf" class="cygnus-catalog-checkbox">
+                <select name="decaf" id="decaf" class="cygnus-catalog-select">
+                    <option value="">All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
             </div>
         
             <div class="form-row">
@@ -84,38 +101,172 @@
             <button type="submit" id="add-product">Add Product</button>
         
         </form>
-        </div>
-  <div class="cygnus-manage-product-table">
-      <table>
-          <thead>
-              <tr>
-                  <th style="width: 100px;">ID</th>
-                  <th style="width: 200px;">Name</th>
-                  <th style="width: 300px;">Description</th>
-                  <th style="width: 100px;">Price</th>
-                  <th style="width: 200px;">Image URL</th>
-                  <th style="width: 200px;">Delete</th>
-              </tr>
-          </thead>
-          <tbody>
-              @foreach (var product in @Model.Products)
-              {
-                  <tr>
-                      <td>@product.Id</td>
-                      <td>@product.Name</td>
-                      <td><button id="edit" onclick="editDescription('@product.Id', '@product.Description')">Edit</button></td>
-                      <td>@product.Price</td>
-                      <td><button id="edit" onclick="editImageUrl('@product.Id', '@product.ImageUrl')">Edit</button></td>
-                      <td><button type="button" >Delete</button></td>
+    </div>
+    <div class="cygnus-manage-product-table">
+        <table>
+            <thead>
+            <tr>
+                <th style="width: 100px;">ID</th>
+                <th style="width: 200px;">Name</th>
+                <th style="width: 100px;">Price</th>
+                <th style="width: 200px;">Edit</th>
+                <th style="width: 200px;">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var product in @Model.Products)
+            {
+                <tr>
+                    <td>@product.ProductId</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>
+                    <button id="edit" name="id" type="submit" value="@product.ProductId">Edit</button>
+                    </td>
+                    <td><button type="button" >Delete</button></td>
+                </tr>
 
-
-                  </tr>
-
-              }
-          </tbody>
-      </table>
-  </div>
+            }
+            </tbody>
+        </table>
+    </div>
 
 </div>
+<dialog id="editDialog">
+    
+    <h2>Edit Product</h2>
+    <div class="cygnus-manage-edit-form">
+        <form method="post">
+            <div class="form-row">
+                <label for="name" id="label">Name:</label>
+                <input type="text" id="editName" name="editName" autocomplete="off">
+            </div>
+
+            <div class="form-row">
+                <label for="description">Description:</label>
+                <input type="text" id="editDescription" name="editDescription" autocomplete="off">
+            </div>
+
+            <div class="form-row">
+                <label for="price">Price:</label>
+                <input type="number" id="editPrice" name="editPrice" step="any" autocomplete="off">
+            </div>
+
+            <div class="form-row">
+                <label for="image-url">Image URL:</label>
+                <input type="text" id="editImageUrl" name="editImageUrl" autocomplete="off">
+            </div>
+
+            <div class="form-row">
+                <label for="tag">Tag:</label>
+                <select name="editTag" id="editTag" class="cygnus-catalog-select">
+                    <option value="topSelling">Top selling</option>
+                    <option value="espresso">Espresso Beans</option>
+                    <option value="blend">Coffee Blends</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label for="roast-level">Roast Level:</label>
+                <select name="editRoastLevel" id="editRoastLevel" class="cygnus-catalog-select">
+                    <option value="light">Light</option>
+                    <option value="medium">Medium</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label for="origin">Bean Origin:</label>
+                <select name="editOrigin" id="editOrigin" class="cygnus-catalog-select">
+                    <option value="africa">Africa</option>
+                    <option value="asia">Asia</option>
+                    <option value="central-america">Central America</option>
+                    <option value="south-america">South America</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="flavor-profile">Flavor Profile:</label>
+                <select name="editFlavorProfile" id="editFlavorProfile" class="cygnus-catalog-select">
+                    <option value="nutty">Nutty</option>
+                    <option value="chocolatey">Chocolatey</option>
+                    <option value="fruity">Fruity</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label for="organic">Organic:</label>
+                <select name="editOrganic" id="editOrganic" class="cygnus-catalog-select">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+                    
+            <div class="form-row">
+                <label for="decaf">Decaf:</label>
+                <select name="editDecaf" id="editDecaf" class="cygnus-catalog-select">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label for="bag-size">Bag Size:</label>
+                <select name="editBagSize" id="editBagSize" class="cygnus-catalog-select">
+                    <option value="250g">250g</option>
+                    <option value="500g">500g</option>
+                    <option value="1kg">1kg</option>
+                </select>
+            </div>
+            <input id="edited-product-id" name="editId" hidden="hidden" value="null"/>
+            <button type="submit" id="add-product" asp-page-handler="Edit">Add Product</button>
+
+        </form>
+    </div>
+    <!-- Add your form elements for editing the product here -->
+    <button id="closeDialog">Close</button>
+    
+</dialog>
+
+<script>
+    // Create a JavaScript object containing the product data using Razor Pages syntax
+    var productsData = @Html.Raw(Json.Serialize(Model.Products));
+
+    
+    function getProductById(productId) {
+        return productsData.find(product => {
+            console.log('product.ProductId:', product.productId);
+            console.log('productId:', productId);
+            return parseInt(product.productId) === parseInt(productId);
+        });
+    }
+    
+    document.querySelectorAll('#edit').forEach(editButton => {
+        editButton.addEventListener('click', (event) => {
+            let productId = event.target.value;
+            console.log(productId);
+            document.getElementById('editDialog').showModal();
+            document.getElementById('edited-product-id').value = productId;
+            console.log(productsData);
+            var productData = getProductById(productId);
+            console.log(productData);
+    
+            document.getElementById('editName').value = productData.name;
+            document.getElementById('editDescription').value = productData.description;
+            document.getElementById('editPrice').value = productData.price;
+            document.getElementById('editImageUrl').value = productData.imageUrl;
+            document.getElementById('editOrigin').value = productData.origin;
+            document.getElementById('editRoastLevel').value = productData.roastLevel;
+            document.getElementById('editFlavorProfile').value = productData.flavorProfile;
+            document.getElementById('editBagSize').value = productData.bagSize;
+            document.getElementById('editDecaf').value = productData.decaf;
+            document.getElementById('editOrganic').value = productData.organic;
+            document.getElementById('editTag').value = productData.tag || ''; // Set to an empty string if the tag is null
+        });
+    });
+    
+    document.getElementById('closeDialog').addEventListener('click', () => {
+        document.getElementById('editDialog').close();
+    });
+</script>
 </body>
 </html>
