@@ -14,6 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IProductRepository,ProductRepository>();
+builder.Services.AddScoped<NovaPoshtaApi>();
+builder.Services.AddHttpClient<NovaPoshtaApi>();
+builder.Services.Configure<NovaPoshtaApiOptions>(options =>
+{
+    options.ApiKey = "06bd6bce5df7fa4eecd6ea159e2e91b1";
+});
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql("Host=localhost;Database=mydb;Username=artemcmilenko"));

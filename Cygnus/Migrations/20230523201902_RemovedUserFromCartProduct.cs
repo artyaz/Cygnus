@@ -5,53 +5,42 @@
 namespace Cygnus.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateSchemaLatest : Migration
+    public partial class RemovedUserFromCartProduct : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Orders_Users_OwnerId",
-                table: "Orders");
+                name: "FK_CartProducts_Users_OwnerId",
+                table: "CartProducts");
 
             migrationBuilder.DropIndex(
-                name: "IX_Orders_OwnerId",
-                table: "Orders");
+                name: "IX_CartProducts_OwnerId",
+                table: "CartProducts");
 
             migrationBuilder.DropColumn(
                 name: "OwnerId",
-                table: "Orders");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Owner",
-                table: "Orders",
-                type: "text",
-                nullable: false,
-                defaultValue: "");
+                table: "CartProducts");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Owner",
-                table: "Orders");
-
             migrationBuilder.AddColumn<int>(
                 name: "OwnerId",
-                table: "Orders",
+                table: "CartProducts",
                 type: "integer",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_OwnerId",
-                table: "Orders",
+                name: "IX_CartProducts_OwnerId",
+                table: "CartProducts",
                 column: "OwnerId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Orders_Users_OwnerId",
-                table: "Orders",
+                name: "FK_CartProducts_Users_OwnerId",
+                table: "CartProducts",
                 column: "OwnerId",
                 principalTable: "Users",
                 principalColumn: "Id",

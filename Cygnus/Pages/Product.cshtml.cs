@@ -1,37 +1,54 @@
 using Cygnus.Data;
 using Cygnus.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Cygnus.Pages
+namespace Cygnus.Pages;
+
+public class ProductModel : PageModel
 {
-    public class ProductModel : PageModel
+    public Product Product { get; set; }
+
+    private readonly IProductRepository _productRepository;
+    private readonly AppDbContext _db;
+
+    public ProductModel(IProductRepository productRepository, AppDbContext db)
     {
-        public Product Product { get; set; }
-        
-        private readonly IProductRepository _productRepository;
-        private readonly AppDbContext _db;
+        _productRepository = productRepository;
+        _db = db;
+    }
 
-        public ProductModel(IProductRepository productRepository, AppDbContext db)
+    public void OnPostAddToCart(int id, int quantity)
+    {
+        string ownerUsername = User.Identity.IsAuthenticated ? User.Claims.ToList()[0].Value : "anonymous";
+
+        // Check if the product already exists in the cart
+        var existingCartProduct = _productRepository.GetCartProductByProductIdAndOwner(id, ownerUsername);
+
+        if (existingCartProduct != null)
         {
-            _productRepository = productRepository;
-            _db = db;
+            // If the product exists, update the count
+            existingCartProduct.Count += quantity;
+            _productRepository.UpdateCartProduct(existingCartProduct);
         }
-        
-        public void OnPostAddToCart(int id)
+        else
         {
-            Product product = _productRepository.GetProductById(id);
-            _productRepository.AddToCart(product);
-            OnGet(id);
+            // If the product doesn't exist, add it to the cart
+            var cartProduct = new CartProduct
+            {
+                ProductId = id,
+                Product = _productRepository.GetProductById(id),
+                Count = quantity,
+                OwnerUsername = ownerUsername
+            };
+            _productRepository.AddToCart(cartProduct);
         }
 
-        public void OnGet(int id)
-        {
-            
-            Product = _productRepository.GetProductById(id);
+        OnGet(id);
+    }
 
-            // Set the "Title" property of the ViewData dictionary
-            ViewData["Title"] = Product.Name;
-        }
+    public void OnGet(int id)
+    {
+        Product = _productRepository.GetProductById(id);
+        ViewData["Title"] = Product.Name;
     }
 }
