@@ -13,7 +13,7 @@ public class Product
     [Required]
     public string Description { get; set; }
     
-    public string Tag { get; set; }
+    public string? Tag { get; set; }
     [Required]
     public double Price { get; set; }
     [Required]
