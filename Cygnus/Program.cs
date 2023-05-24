@@ -1,20 +1,54 @@
 
 using System.Security.Claims;
+using Cygnus;
+using Cygnus.Data;
 using Cygnus.Models;
+using Cygnus.Pages;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IProductRepository,ProductRepository>();
-// builder.Services.AddScoped<AuthService>();
-// builder.Services.AddDataProtection();
-// builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<NovaPoshtaApi>();
+builder.Services.AddHttpClient<NovaPoshtaApi>();
+builder.Services.Configure<NovaPoshtaApiOptions>(options =>
+{
+    options.ApiKey = "06bd6bce5df7fa4eecd6ea159e2e91b1";
+});
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql("Host=localhost;Database=mydb;Username=artemcmilenko"));
 builder.Services.AddAuthentication("cookie")
     .AddCookie("cookie");
+// Add ASP.NET Core Identity
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>();
+
+// Add UserManager to DI container
+builder.Services.AddScoped<UserManager<IdentityUser>>();
+
+builder.Services.AddAuthorization(builder =>
+{
+    builder.AddPolicy("super_admin", policy =>
+    {
+        policy.RequireClaim("role", "super_admin");
+    });
+    builder.AddPolicy("admin", policy =>
+    {
+        policy.RequireAssertion(context =>
+            context.User.HasClaim(claim =>
+                (claim.Type == "role" && (claim.Value == "admin" || claim.Value == "super_admin"))));
+    });
+    builder.AddPolicy("user", policy =>
+    {
+        policy.RequireClaim("role", "user");
+    });
+});
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -25,46 +59,39 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-// app.Use((ctx, next) =>
-// {
-//     var idp = ctx.RequestServices.GetRequiredService<IDataProtectionProvider>();
-//     
-//     var protector = idp.CreateProtector("auth-cookie");
-//     var authCookie = ctx.Request.Headers.Cookie.FirstOrDefault(x => x.Contains("auth="));
-//
-//     var protectedPayload = authCookie.Split("=").Last();
-//     var payload = protector.Unprotect(protectedPayload);
-//     var parts = payload.Split(":");
-//     var key = parts[0];
-//     var username = parts[1];
-//
-//     var claims = new List<Claim>();
-//     claims.Add(new Claim(key, username));
-//     var identity = new ClaimsIdentity(claims);
-//     ctx.User = new ClaimsPrincipal(identity);
-//
-//     return next();
-// });
-
 app.UseAuthentication();
+app.UseAuthorization();
 
-app.MapGet("/username", (HttpContext ctx) =>
+app.MapGet("/logout", async (HttpContext ctx) =>
 {
-    return ctx.User.FindFirst("usr")?.Value;
+    await ctx.SignOutAsync("Identity.Application");
+    ctx.Response.Redirect("/"); // Redirect to the index page
 });
 
-app.MapGet("/login", async (HttpContext ctx) =>
+app.MapGet("/registe", async (HttpContext ctx, AppDbContext db) =>
 {
-    //auth.SignIn();
-    
-    var claims = new List<Claim>();
-    claims.Add(new Claim("usr", "artem"));
-    var identity = new ClaimsIdentity(claims, "cookie");
-    var user = new ClaimsPrincipal(identity);
+    var user = new User
+    {
+        Username = "test2",
+        PasswordHash = "your_password_hash", // Replace this with a hashed password
+        Role = "admin"
+    };
 
-    await ctx.SignInAsync("cookie", user);
-    
+    db.Users.Add(user);
+    await db.SaveChangesAsync();
+
+    var claims = new List<Claim>
+    {
+        new Claim("usr", user.Username),
+        new Claim("role", user.Role)
+    };
+    var identity = new ClaimsIdentity(claims, "cookie");
+    var principal = new ClaimsPrincipal(identity);
+
+    await ctx.SignInAsync("cookie", principal);
+
     return "ok";
+    
 });
 
 app.UseHttpsRedirection();
@@ -77,20 +104,3 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
-
-// public class AuthService
-// {
-//     private readonly IHttpContextAccessor _accessor;
-//     private readonly IDataProtectionProvider _idp;
-//     public AuthService(IDataProtectionProvider idp, IHttpContextAccessor accessor)
-//     {
-//         _accessor = accessor;
-//         _idp = idp;
-//     }
-//
-//     public void SignIn()
-//     {
-//         var protector = _idp.CreateProtector("auth-cookie");
-//         _accessor.HttpContext.Response.Headers["set-cookie"] = $"auth={protector.Protect("usr:artem")}" ;
-//     }
-// }

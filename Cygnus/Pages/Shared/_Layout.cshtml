@@ -1,10 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Authentication
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@inject IAuthorizationService AuthorizationService
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Cygnus</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/styles/cygnus-header.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/styles/cygnus-homepage.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/Cygnus.styles.css" asp-append-version="true"/>
@@ -26,14 +34,50 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/ProductCatalog">Catalog</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Manage">Manage</a>
-                    </li>
+                    
+                    @if (User.HasClaim("role", "admin") || User.HasClaim("role", "super_admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Manage">Manage</a>
+                        </li>
+                    }
+                    @if (User.HasClaim("role", "super_admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/ManageUsers">Users</a>
+                        </li>
+                    }
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/Cart">Cart</a>
                     </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Orders">Orders</a>
+                        </li>
+                    }
+                    <li class="nav-item">
+                    </li>
                 </ul>
             </div>
+            @if (HttpContextAccessor.HttpContext.User.FindFirst("usr") == null)
+            {
+                <a href="/login" class="cygnus-btn-logout">Login</a>
+                <a href="/Register" class="cygnus-btn-logout">Register</a>
+            }
+            else
+            {
+                var userName = HttpContextAccessor.HttpContext.User.FindFirst("usr").Value;
+                <div id="welcomeContainer">
+                  <p class="nav-item" id="welcomeMessage" onclick="showDialog()">↓Welcome, @userName!</p>
+                
+                  <div id="logoutDialog" class="cygnus-dialog">
+                    <p>Are you sure you want to log out?</p>
+                    <a href="/logout" class="cygnus-btn-logout">Log out</a>
+                    <button onclick="hideDialog()" class="cygnus-btn-cancel">Cancel</button>
+                  </div>
+                </div>
+            }
         </div>
     </nav>
 </header>
@@ -52,6 +96,32 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+
+<script>
+  function showDialog() {
+      const dialog = document.getElementById('logoutDialog');
+      dialog.style.display = 'block';
+      dialog.style.animation = 'bounceIn 0.5s';
+      document.addEventListener('click', handleClickOutside);
+    }
+  
+    function hideDialog() {
+      const dialog = document.getElementById('logoutDialog');
+      dialog.style.animation = 'bounceOut 0.5s';
+      setTimeout(() => {
+        dialog.style.display = 'none';
+      }, 500);
+      document.removeEventListener('click', handleClickOutside);
+    }
+  
+    function handleClickOutside(event) {
+      const dialog = document.getElementById('logoutDialog');
+      const welcomeMessage = document.getElementById('welcomeMessage');
+      if (!dialog.contains(event.target) && !welcomeMessage.contains(event.target)) {
+        hideDialog();
+      }
+    }
+</script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>

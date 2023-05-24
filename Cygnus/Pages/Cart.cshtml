@@ -2,51 +2,138 @@
 @model Cygnus.Pages.Cart
 
 <link rel="stylesheet" href="/styles/cygnus-cart.css">
+<head>
+  <!-- Other head content -->
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Select2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+  <!-- Select2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+</head>
 <body>
 <div class="cygnus-cart-view">
     <div class="cygnus-cart-table">
-          <table>
-              <thead>
-              <tr>
-                  <th>Image</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Remove</th>
-              </tr>
-              </thead>
-              <tbody>
-                  @foreach (var product in @Model.CartProducts)
-                  {
-                      <tr>
-                          <td><img src="@product.ImageUrl"/></td>
-                          <td>@product.Name</td>
-                          <td>@product.Price</td>
-                          <td>1</td>
-                          <td><form method="post">
-                              <input type="hidden" name="id" value="@product.Id" />
-                              <button id="edit" asp-page-handler="Remove">Remove</button>
-                          </form></td>
-                      </tr>
+        <table>
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var product in @Model.CartProducts)
+            {
+                <tr>
+                    <td><img src="@product.Product.ImageUrl"/></td>
+                    <td>@product.Product.Price</td>
+                    <td>@product.Product.Name</td>
+                    <form method="post" asp-page-handler="ChangeCount" id="@("change-count-form-" + product.CartProductId)">
+                        <td>
+                            <span>@product.Count</span>
+                        </td>
+                    </form>
+                    <td><form method="post">
+                        <input type="hidden" name="id" value="@product.CartProductId" />
+                        <button id="edit" asp-page-handler="Remove">Remove</button>
+                    </form></td>
+                </tr>
     
-                  }
-              </tbody>
-          </table>
-      </div>
+            }
+            </tbody>
+        </table>
+    </div>
     <div class="cygnus-checkout">
         <h2>Chekout</h2>
         <hr>
         <p>Total: $<b id="total">@{
-         double total = 0;
-         foreach (var item in Model.CartProducts)
-         {
-         total += Convert.ToDouble(item.Price);
-         } 
-         @total
-         }</b></p>
-        <div class="cygnus-checkout-container">
-            <button id="checkout">Checkout</button>
-        </div>
+                                     double total = 0;
+                                     foreach (var item in Model.CartProducts)
+                                     {
+                                         total += Convert.ToDouble(item.Product.Price);
+                                     } 
+                                     @total
+                                 }</b></p>
+        <form method="post" class="cygnus-checkout-container">
+            <p style="margin-bottom: 10px; margin-top: 20px;"><b>Select your city:</b></p>
+            <select style="max-width: 100%; width: 100%" id="city" name="city">
+                <option value=""></option>
+                @foreach (var city in Model.Cities)
+                {
+                    <option value="@city">@city</option>
+                }
+            </select>
+            <p style="margin-bottom: 10px; margin-top: 20px;"><b>Select your Nova Poshta department:</b></p>
+            <select style="max-width: 100%; width: 100%" id="postDepartment" name="postDepartment" disabled>
+                <option value=""></option>
+            </select>
+            <button id="checkout" asp-page-handler="Checkout" disabled>Checkout</button>
+        </form>
+        
+        <script>
+            const citySelect = document.getElementById('city');
+            const postDepartmentSelect = document.getElementById('postDepartment');
+            const checkoutButton = document.getElementById('checkout');
+        
+            function updateCheckoutButtonState() {
+                if (citySelect.value !== '' && postDepartmentSelect.value !== '') {
+                    checkoutButton.disabled = false;
+                } else {
+                    checkoutButton.disabled = true;
+                }
+            }
+        
+            citySelect.addEventListener('change', updateCheckoutButtonState);
+            postDepartmentSelect.addEventListener('change', updateCheckoutButtonState);
+        </script>
     </div>
 </div>
 </body>
+<script>
+    function submitForm(inputElement, formId) {
+        const form = document.getElementById(formId);
+        form.submit();
+    }
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Initialize Select2 elements
+    $("#city").select2({
+      placeholder: "Select a city",
+      allowClear: true,
+    });
+
+    $("#postDepartment").select2({
+      placeholder: "Select a post department",
+      allowClear: true,
+    });
+  });
+</script>
+<script>
+    document.getElementById("city").addEventListener("change", async function() {
+        const city = this.value;
+        const postDepartmentSelect = document.getElementById("postDepartment");
+        
+        if (city) {
+            const response = await fetch(`/Cart?handler=PostDepartments&city=${encodeURIComponent(city)}`);
+            const postDepartments = await response.json();
+            postDepartmentSelect.innerHTML = '<option value="">Select a post department</option>';
+            postDepartments.forEach(pd => {
+                const option = document.createElement("option");
+                option.value = pd;
+                option.textContent = pd;
+                postDepartmentSelect.appendChild(option);
+            });
+            postDepartmentSelect.disabled = false;
+        } else {
+            postDepartmentSelect.disabled = true;
+        }
+    });
+
+</script>

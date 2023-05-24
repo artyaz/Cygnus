@@ -117,11 +117,11 @@
             @foreach (var product in @Model.Products)
             {
                 <tr>
-                    <td>@product.Id</td>
+                    <td>@product.ProductId</td>
                     <td>@product.Name</td>
                     <td>@product.Price</td>
                     <td>
-                    <button id="edit" name="id" type="submit" value="@product.Id">Edit</button>
+                    <button id="edit" name="id" type="submit" value="@product.ProductId">Edit</button>
                     </td>
                     <td><button type="button" >Delete</button></td>
                 </tr>
@@ -231,25 +231,25 @@
     // Create a JavaScript object containing the product data using Razor Pages syntax
     var productsData = @Html.Raw(Json.Serialize(Model.Products));
 
-    // Function to get the product by ID
+    
     function getProductById(productId) {
-        return productsData.find(product => product.id === parseInt(productId));
+        return productsData.find(product => {
+            console.log('product.ProductId:', product.productId);
+            console.log('productId:', productId);
+            return parseInt(product.productId) === parseInt(productId);
+        });
     }
-
-    // Event listeners for edit buttons
+    
     document.querySelectorAll('#edit').forEach(editButton => {
         editButton.addEventListener('click', (event) => {
             let productId = event.target.value;
+            console.log(productId);
             document.getElementById('editDialog').showModal();
-            console.log('Code is running');
             document.getElementById('edited-product-id').value = productId;
-
-            // Get the product data by ID
+            console.log(productsData);
             var productData = getProductById(productId);
-            console.log(productData.bagSize)
-            console.log(productData)
-
-            // Update the input field with the product name
+            console.log(productData);
+    
             document.getElementById('editName').value = productData.name;
             document.getElementById('editDescription').value = productData.description;
             document.getElementById('editPrice').value = productData.price;
@@ -260,16 +260,10 @@
             document.getElementById('editBagSize').value = productData.bagSize;
             document.getElementById('editDecaf').value = productData.decaf;
             document.getElementById('editOrganic').value = productData.organic;
-            document.getElementById('editTag').value = productData.tag;
-            
-
-            console.log("new value: " + document.getElementById('edited-product-id').value);
-            console.log(productsData.length);
-            console.log('Code is running');
+            document.getElementById('editTag').value = productData.tag || ''; // Set to an empty string if the tag is null
         });
     });
-
-    // Event listener for closing the dialog
+    
     document.getElementById('closeDialog').addEventListener('click', () => {
         document.getElementById('editDialog').close();
     });

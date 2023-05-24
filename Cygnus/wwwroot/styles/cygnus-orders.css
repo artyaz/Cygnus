@@ -1,0 +1,62 @@
+.cygnus-container {
+    display: flex;
+    justify-content: center;
+}
+.cygnus-order-view {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 50%;
+    width: 100%;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 0.5px;
+}
+
+.cygnus-order-item {
+    padding: 10px;
+    width: 100%;
+}
+
+.cygnus-order-products {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.cygnu-order-product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 0.5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+
+.cygnu-order-product img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 0.5px;
+}
+
+.cygnu-order-product p {
+    font-size: 12px;
+    text-align: center;
+    margin: 0;
+    margin-left: 5px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
