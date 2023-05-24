@@ -253,6 +253,10 @@
       "PackagePath": "staticwebassets/scripts/manage-view.js"
     },
     {
+      "Id": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/scripts/product-page.js",
+      "PackagePath": "staticwebassets/scripts/product-page.js"
+    },
+    {
       "Id": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-cart.css",
       "PackagePath": "staticwebassets/styles/cygnus-cart.css"
     },
@@ -277,8 +281,8 @@
       "PackagePath": "staticwebassets/styles/cygnus-orders.css"
     },
     {
-      "Id": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-product-style.css",
-      "PackagePath": "staticwebassets/styles/cygnus-product-style.css"
+      "Id": "/Users/artemcmilenko/Documents/Workspace/Code/C#/something/Cygnus/Cygnus/wwwroot/styles/cygnus-product.css",
+      "PackagePath": "staticwebassets/styles/cygnus-product.css"
     },
     {
       "Id": "obj/Debug/net7.0/staticwebassets/msbuild.Cygnus.Microsoft.AspNetCore.StaticWebAssets.props",

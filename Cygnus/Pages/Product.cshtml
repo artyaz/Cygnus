@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = @Model.Product.Name;
 }
-<link rel="stylesheet" href="/styles/cygnus-product-style.css">
+<link rel="stylesheet" href="/styles/cygnus-product.css">
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +17,41 @@
         <div><img src="@Model.Product.ImageUrl" alt="@Model.Product.Name"/></div>
         <h1>@Model.Product.Name</h1>
         <p>@Model.Product.Description</p>
+        <hr>
+        
+        <div class="cygnus-specifications" style="margin-top: 20px;">
+            <h3>Specifications:</h3>
+            <hr>
+            <div class="cygnus-spcf">
+                <span class="cygnus-spcf-name">Roast Level:</span>
+                <span class="cygnus-spcf-value">@FirstLetterToUpper(Model.Product.RoastLevel)</span>
+            </div>
+            <hr>
+            <div class="cygnus-spcf">
+                <span class="cygnus-spcf-name">Origin:</span>
+                <span class="cygnus-spcf-value">@FirstLetterToUpper(Model.Product.Origin)</span>
+            </div>
+            <hr>
+            <div class="cygnus-spcf">
+                <span class="cygnus-spcf-name">Flavor Profile:</span>
+                <span class="cygnus-spcf-value">@FirstLetterToUpper(Model.Product.FlavorProfile)</span>
+            </div>
+            <hr>
+            <div class="cygnus-spcf">
+                <span class="cygnus-spcf-name">Organic:</span>
+                <span class="cygnus-spcf-value">@YesNo(Model.Product.Organic)</span>
+            </div>
+            <hr>
+            <div class="cygnus-spcf">
+                <span class="cygnus-spcf-name">Decaf:</span>
+                <span class="cygnus-spcf-value">@YesNo(Model.Product.Decaf)</span>
+            </div>
+            <hr>
+            <div class="cygnus-spcf">
+                <span class="cygnus-spcf-name">Bag Size:</span>
+                <span class="cygnus-spcf-value">@FirstLetterToUpper(Model.Product.BagSize)</span>
+            </div>
+        </div>
     </div>
     <form class="cygnus-checkout" method="post">
         <h2>@Model.Product.Name</h2>
@@ -31,4 +66,22 @@
     </form>
 </div>
 </body>
+<script>
+@functions {
+    public string FirstLetterToUpper(string str)
+    {
+        if (string.IsNullOrEmpty(str))
+        {
+            return str;
+        }
+        return char.ToUpper(str[0]) + str.Substring(1);
+    }
+    
+    public string YesNo(bool value)
+    {
+        return value ? "Yes" : "No";
+    }
+}
+
+</script>
 </html>

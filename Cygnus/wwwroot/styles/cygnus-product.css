@@ -17,8 +17,28 @@
     flex-direction: row;
     justify-content: space-between;
     margin: 20px;
-    
 }
+
+.cygnus-spcf {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cygnus-spcf-name {
+    font-weight: bold;
+    width: 120px;
+    text-align: left;
+    margin-right: 10px;
+}
+
+.cygnus-spcf-value {
+    color: #5c636a;
+    width: 120px;
+    text-align: left;
+    margin-right: 10px;
+}
+
 .cygnus-checkout {
     padding: 20px;
     position: relative;
